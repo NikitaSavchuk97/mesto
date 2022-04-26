@@ -1,0 +1,8 @@
+.popup__about {
+    width: 90%;
+    margin: 30px auto 0 auto;
+    border: none;
+    opacity: 0.4;
+    border-bottom: 1px solid #000000;
+    list-style-type: none;
+}
