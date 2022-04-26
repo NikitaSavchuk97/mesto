@@ -1,8 +1,6 @@
 .popup {
-    display: block;
-    z-index: 999;
-    background-color: rgba(0, 0, 0, 0.4);
-
+    display: none;
+    background-color: rgba(0, 0, 0, 0.5);
     position: fixed;
     top: 0;
     right: 0;
