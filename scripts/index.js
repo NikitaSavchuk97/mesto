@@ -16,7 +16,6 @@ function togglePopup () {
 }
 
 
-
 let formElement = document.querySelector('.popup__container');
 let nameInput = formElement.querySelector('.popup__name');
 let jobInput = formElement.querySelector('.popup__about');

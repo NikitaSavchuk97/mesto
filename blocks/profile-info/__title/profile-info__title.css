@@ -1,5 +1,9 @@
 .profile-info__title {
     grid-area: title;
+
+    min-height: 18px;
+    max-width: 336px;
+    flex-wrap: wrap;
     
     font-style: normal;
     font-weight: 400;
@@ -9,9 +13,6 @@
     margin: 0 0 0 0;
 
     text-align: start;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
 }
 
 @media screen and (max-width: 768px) {
