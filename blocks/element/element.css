@@ -1,7 +1,7 @@
 .element {
     display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr;
+    grid-template-columns: 1fr min-content;
+    grid-template-rows: 1fr min-content;
     grid-template-areas: 
     'photo photo'
     'title like';
