@@ -2,6 +2,9 @@
     width: 90%;
     margin: 54px auto 0 auto;
     border: none;
-    opacity: 0.4;
     border-bottom: 1px solid #000000;
+    color: #000000;
+}
+.popup__name:focus {
+    outline-style: none;
 }

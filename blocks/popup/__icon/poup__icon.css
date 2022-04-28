@@ -1,13 +1,6 @@
 .popup__icon {
-    
-
     width: 32px;
     height: 32px;
-
-    background-image: url(../../../images/__close.svg);
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
 }
 
 @media screen and (max-width: 425px) {
