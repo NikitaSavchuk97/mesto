@@ -6,10 +6,15 @@
     margin: 0;
     padding: 0;
 
+    transition: opacity 0.3s ease-in-out;
+
     border: none;
     cursor: pointer;
 
     background-color: transparent;
+}
+.popup__close:hover {
+    opacity: 0.6;
 }
 
 @media screen and (max-width:768px) {

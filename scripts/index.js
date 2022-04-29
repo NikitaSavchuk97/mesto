@@ -3,6 +3,37 @@ const popupOpenBtn = document.querySelector('.profile-info__edit-button');
 const popup = document.querySelector('.popup');
 const popupClose = document.querySelector('.popup__close');
 
+
+const profileName = document.querySelector('.profile-info__name');
+const profileJob = document.querySelector('.profile-info__title');
+
+const formElement = document.querySelector('.popup__container');
+const nameInput = formElement.querySelector('.popup__name');
+const jobInput = formElement.querySelector('.popup__about');
+
+
+
+/*
+Какую из двух версий кода было бы лучше(логичнее?) использовать?
+Я полсчитал что ответ на этот вопрос таков:
+- в той, в которой меньше кода... :)
+*/
+
+
+
+// FIRST VERSION OF POPUP OPENED-AND-CLOSE FUNCTION
+
+/*
+let popupTrue = popup.classList.contains('popup_active');
+
+function togglePopup () {
+    if (popupTrue = true) {
+    popup.classList.toggle('popup_active');
+    nameInput.value = profileName.textContent;
+    jobInput.value = profileJob.textContent;
+    }
+}
+
 popupOpenBtn.addEventListener ('click', function() {
     togglePopup();
 });
@@ -11,28 +42,36 @@ popupClose.addEventListener ('click', function() {
     togglePopup();
 });
 
-function togglePopup () {
-    popup.classList.toggle('popup_active');
-}
-
-
-let formElement = document.querySelector('.popup__container');
-let nameInput = formElement.querySelector('.popup__name');
-let jobInput = formElement.querySelector('.popup__about');
-
-let nameInfo = document.querySelector('.profile-info__name');
-let jobInfo = document.querySelector('.profile-info__title');
-
-nameInput.value = nameInfo.textContent;
-jobInput.value = jobInfo.textContent;
-
 function formSubmitHandler (evt) {
     evt.preventDefault();
-    document.querySelector('.profile-info__name').innerHTML = nameInput.value;
-    document.querySelector('.profile-info__title').innerHTML = jobInput.value;
+    profileName.textContent = nameInput.value;
+    profileJob.textContent = jobInput.value;
     togglePopup();
 }
 
 formElement.addEventListener('submit', formSubmitHandler);
+*/
 
 
+
+
+// SECOND VERSION OF POPUP OPENED-AND-CLOSE FUNCTION
+
+popupOpenBtn.addEventListener ('click', function() {
+    popup.classList.add('popup_active');
+    nameInput.value = profileName.textContent;
+    jobInput.value = profileJob.textContent;
+});
+
+popupClose.addEventListener ('click', function() {
+    popup.classList.remove('popup_active');
+});
+
+function formSubmitHandler (evt) {
+    evt.preventDefault();
+    profileName.textContent = nameInput.value;
+    profileJob.textContent = jobInput.value;
+    popup.classList.remove('popup_active');
+}
+
+formElement.addEventListener('submit', formSubmitHandler);

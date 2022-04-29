@@ -2,6 +2,8 @@
     width: 142px;
     height: 33px;
 
+    margin: 0 0 41px 0;
+
     background-image: url(../../../images/__logo.svg);
     background-repeat: no-repeat;
     background-size: contain;
@@ -12,7 +14,7 @@
         width: 104px;
         height: 24px;
 
-        margin: 0 auto 0 10%;
+        margin: 0 auto 32px 10%;
     }
 
 }

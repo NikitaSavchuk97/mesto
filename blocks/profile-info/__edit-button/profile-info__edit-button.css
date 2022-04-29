@@ -14,11 +14,16 @@
 
     cursor: pointer;
 
+    transition: opacity 0.3s ease-in-out;
+
     background-image: url(../../../images/__edit-button.svg);
     background-color: black;
     background-repeat: no-repeat;
     background-size: 10px 10px;
     background-position: center;
+}
+.profile-info__edit-button:hover {
+    opacity: 0.6;
 }
 
 @media screen and (max-width: 768px) {

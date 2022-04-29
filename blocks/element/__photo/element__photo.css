@@ -7,3 +7,15 @@
     height: 282px;
     object-fit: cover;
 }
+
+@media screen and (max-width: 768px) {
+    .element__photo {
+        height: 500px;
+    }
+}
+
+@media screen and (max-width: 425px) {
+    .element__photo {
+        height: 282px;
+    }
+}

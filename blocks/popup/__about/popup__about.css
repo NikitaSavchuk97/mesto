@@ -1,10 +1,16 @@
 .popup__about {
-    width: 90%;
+    width: 84%;
     margin: 30px auto 0 auto;
     border: none;
-    border-bottom: 1px solid #000000;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
     list-style-type: none;
 }
 .popup__about:focus {
     outline-style: none;
+}
+
+@media screen and (max-width: 425px) {
+    .popup__about {
+        margin: 30px auto 0 auto;
+    }
 }
