@@ -59,7 +59,7 @@ function popupHide () {
     popup.classList.remove('popup_active');
 }
 
-popupClose.addEventListener ('click', function() {
+popupCloseBtn.addEventListener ('click', function() {
     popupHide();
 });
 
