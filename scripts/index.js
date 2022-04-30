@@ -1,7 +1,7 @@
 
 const popupOpenBtn = document.querySelector('.profile-info__edit-button');
 const popup = document.querySelector('.popup');
-const popupClose = document.querySelector('.popup__close');
+const popupCloseBtn = document.querySelector('.popup__close');
 
 
 const profileName = document.querySelector('.profile-info__name');
@@ -10,14 +10,6 @@ const profileJob = document.querySelector('.profile-info__title');
 const formElement = document.querySelector('.popup__container');
 const nameInput = formElement.querySelector('.popup__name');
 const jobInput = formElement.querySelector('.popup__about');
-
-
-
-/*
-Какую из двух версий кода было бы лучше(логичнее?) использовать?
-Я полсчитал что ответ на этот вопрос таков:
-- в той, в которой меньше кода... :)
-*/
 
 
 
@@ -63,15 +55,19 @@ popupOpenBtn.addEventListener ('click', function() {
     jobInput.value = profileJob.textContent;
 });
 
-popupClose.addEventListener ('click', function() {
+function popupHide () {
     popup.classList.remove('popup_active');
+}
+
+popupClose.addEventListener ('click', function() {
+    popupHide();
 });
 
 function formSubmitHandler (evt) {
     evt.preventDefault();
     profileName.textContent = nameInput.value;
     profileJob.textContent = jobInput.value;
-    popup.classList.remove('popup_active');
+    popupHide();
 }
 
 formElement.addEventListener('submit', formSubmitHandler);
