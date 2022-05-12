@@ -11,6 +11,8 @@
     border: none;
     cursor: pointer;
 
+    z-index: 99;
+
     background-color: transparent;
 }
 .popup__close:hover {
