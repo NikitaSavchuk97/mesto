@@ -32,9 +32,19 @@ const popupInfoForm = popupInfo.querySelector('.popup__form');
 const popupInfoNameInput = popupInfoForm.querySelector('.popup__name');
 const popupInfoJobInput = popupInfoForm.querySelector('.popup__about');
 
+// относящиеся к темплейту
+const templateElement = document.querySelector('.template-item');
+
+// метод перебора массива для добавления данных в каждую карточку
+initialCards.forEach(function (item) {
+    const card = createCard(item);
+    renderCard(card);
+});
+
+// функция разметки карточки
 function createCard ({name, link}) {
     // относящиеся к разметке карточки
-    const element = document.querySelector('.template-item').content.cloneNode(true);
+    const element = templateElement.content.cloneNode(true);
     const elementPhoto = element.querySelector('.element__photo');
     const elementTitle = element.querySelector('.element__title');
     const elementLikeBtn = element.querySelector('.element__like');
@@ -48,12 +58,16 @@ function createCard ({name, link}) {
     elementPhoto.alt = name;
     elementTitle.textContent = name;
 
-    elements.append(element);
+    return element;
 }
 
+function addCard (newFlex) {
+    elements.prepend(newFlex);
+}
 
-// метод перебора массива для добавления данных в каждую карточку
-initialCards.forEach(createCard);
+function renderCard (flex) {
+    elements.append(flex);
+}
 
 
 
@@ -102,8 +116,9 @@ function submitPopupInfoFormHandler (evt) {
 // вызов метода очистки формы
 function submitPopupPhotoFormHandler (evt) {
     evt.preventDefault();
-    createCard({name: popupPhotoNameInput.value,
-                link: popupPhotoJobInput.value});
+    const newCard = createCard({name: popupPhotoNameInput.value,
+                                link: popupPhotoJobInput.value});
+    addCard(newCard);
     popupClose(popupPhoto);
     popupPhotoForm.reset();
 }
