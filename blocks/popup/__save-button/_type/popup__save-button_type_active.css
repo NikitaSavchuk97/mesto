@@ -1,0 +1,9 @@
+.popup__save-button_type_active {
+    background-color: none;
+    opacity: 0.2;
+
+
+}
+.popup__save-button_type_active:hover {
+    opacity: 0.2;
+}

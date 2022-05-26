@@ -2,12 +2,8 @@
     width: 84%;
     
     margin: 54px auto 0 auto;
-    border: none;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    
     color: #000000;
-}
-.popup__name:focus {
-    outline-style: none;
 }
 
 @media screen and (max-width: 425px) {

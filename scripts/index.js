@@ -3,22 +3,13 @@ const elements = document.querySelector('.elements');
 
 // относящиеся ко всем попапам
 const popupAll = document.querySelector('.popup');
+const popupAllForm = popupAll.querySelector('.popup__form')
 
-// относящиеся к попапу просмотра иллюстрации
-const popupIllustration = document.querySelector('.popup_type_illustration');
-const popupIllustrationCloseBtn = popupIllustration.querySelector('.popup__close');
-const popupIllustrationImage = popupIllustration.querySelector('.popup__image');
-const popupIllustrationSubtitle = popupIllustration.querySelector('.popup__subtitle');
 
-// относящиеся к кнопке добавления фото
-const profileAddPhotoBtn = document.querySelector('.add-button');
+// относящиеся к темплейту
+const templateElement = document.querySelector('.template-item');
 
-// относящиеся к попапу добавления фото
-const popupPhoto = document.querySelector('.popup_type_photo');
-const popupPhotoCloseBtn = popupPhoto.querySelector('.popup__close');
-const popupPhotoForm = popupPhoto.querySelector('.popup__form');
-const popupPhotoNameInput = popupPhotoForm.querySelector('.popup__name');
-const popupPhotoJobInput = popupPhotoForm.querySelector('.popup__about');
+
 
 // относящиеся к тегам имени и призвания на странице
 const profileName = document.querySelector('.profile-info__name');
@@ -32,8 +23,135 @@ const popupInfoForm = popupInfo.querySelector('.popup__form');
 const popupInfoNameInput = popupInfoForm.querySelector('.popup__name');
 const popupInfoJobInput = popupInfoForm.querySelector('.popup__about');
 
-// относящиеся к темплейту
-const templateElement = document.querySelector('.template-item');
+
+
+// относящиеся к попапу просмотра иллюстрации
+const popupIllustration = document.querySelector('.popup_type_illustration');
+const popupIllustrationCloseBtn = popupIllustration.querySelector('.popup__close');
+const popupIllustrationImage = popupIllustration.querySelector('.popup__image');
+const popupIllustrationSubtitle = popupIllustration.querySelector('.popup__subtitle');
+
+
+
+// относящиеся к тегам добавления фото на странице
+const profileAddPhotoBtn = document.querySelector('.add-button');
+
+// относящиеся к попапу добавления фото
+const popupPhoto = document.querySelector('.popup_type_photo');
+const popupPhotoCloseBtn = popupPhoto.querySelector('.popup__close');
+const popupPhotoForm = popupPhoto.querySelector('.popup__form');
+const popupPhotoNameInput = popupPhotoForm.querySelector('.popup__name');
+const popupPhotoJobInput = popupPhotoForm.querySelector('.popup__about');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function showInputError (popupAllForm, popupAllFormInput, errorMessage) {
+    const popupAllSpanError = popupAllForm.querySelector(`.${popupAllFormInput.id}-error`);
+    popupAllFormInput.classList.add('popup__input_type_error')
+    popupAllSpanError.textContent = errorMessage;
+    popupAllSpanError.classList.add('popup__input-error_type_active');
+}
+function hideInputError (popupAllForm, popupAllFormInput) {
+    const popupAllSpanError = popupAllForm.querySelector(`.${popupAllFormInput.id}-error`);
+    popupAllFormInput.classList.remove('popup__input_type_error')
+    popupAllSpanError.textContent = '';
+    popupAllSpanError.classList.remove('popup__input-error_type_active');
+}
+
+
+
+function isValid (popupAllForm, popupAllFormInput) {
+    if (!popupAllFormInput.validity.valid) {
+        showInputError(popupAllForm, popupAllFormInput, popupAllFormInput.validationMessage);
+    } else {
+        hideInputError(popupAllForm, popupAllFormInput);
+    }
+}
+
+function setEventListeners (popupAllForm) {
+    const popupAllFormInputList = Array.from(popupAllForm.querySelectorAll('.popup__input'));
+    const popupAllFormSaveBtn = popupAllForm.querySelector('.popup__save-button');
+    toggleButtonState (popupAllFormInputList, popupAllFormSaveBtn)
+
+    popupAllFormInputList.forEach( function (popupAllFormInputListElement) {
+        popupAllFormInputListElement.addEventListener('input', function () {
+            isValid(popupAllForm, popupAllFormInputListElement)
+            toggleButtonState (popupAllFormInputList, popupAllFormSaveBtn)
+        });
+    });
+}
+
+function enableValidation () {
+    const popupAllFormList = Array.from(document.querySelectorAll('.popup__form'));
+
+    popupAllFormList.forEach( function (popupAllFormListElement) {
+        popupAllFormListElement.addEventListener('submit', function (evt) {
+            evt.preventDefault();
+        });
+        setEventListeners(popupAllFormListElement);
+    });
+}
+
+function hasInvalidInput (popupAllFormInputList) {
+    return popupAllFormInputList.some( function (popupAllFormInputListElement) {
+        console.log(popupAllFormInputListElement.validity.valid);
+        return popupAllFormInputListElement.validity.valid;
+    });
+}
+
+function toggleButtonState (popupAllFormInputList, popupAllFormSaveBtn) {
+    if (hasInvalidInput(popupAllFormInputList)) {
+        popupAllFormSaveBtn.classList.add('popup__save-button_type_active');
+        popupAllFormSaveBtn.setAttribute('disabled', true);
+    } else {
+        popupAllFormSaveBtn.classList.remove('popup__save-button_type_active');
+        popupAllFormSaveBtn.removeAttribute('disabled');
+    }
+}
+
+enableValidation();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // метод перебора массива для добавления данных в каждую карточку
 initialCards.forEach(function (item) {

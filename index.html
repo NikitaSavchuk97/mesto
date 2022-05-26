@@ -42,10 +42,16 @@
 
                 <h2 class="popup__title">Редактировать профиль</h2>
 
-                <form class="popup__form" name="form" method="post">
-                    <input class="popup__name" type="text" name="name" placeholder="Ваше имя" autocomplete="off" minlength="3" required>
-                    <input class="popup__about" type="text" name="job" placeholder="О себе" autocomplete="off" minlength="3" required>
+                <form class="popup__form" name="form" method="post" novalidate>
+
+                    <input class="popup__name popup__input" id="name-input" type="text" name="name" placeholder="Ваше имя" autocomplete="off" minlength="2" maxlength="40" required>
+                    <span class="popup__input-error name-input-error"></span>
+
+                    <input class="popup__about popup__input" id="about-input" type="text" name="job" placeholder="О себе" autocomplete="off" minlength="2" maxlength="200" required>
+                    <span class="popup__input-error about-input-error"></span>
+
                     <button type="submit" class="popup__save-button">Сохранить</button>
+                    
                 </form>
             </div>
         </div>
@@ -58,10 +64,16 @@
 
                 <h2 class="popup__title">Новое место</h2>
 
-                <form class="popup__form" name="form" method="post">
-                    <input class="popup__name" type="text" name="name" placeholder="Название" autocomplete="off" minlength="1">
-                    <input class="popup__about" type="text" name="job" placeholder="Ссылка на картинку" autocomplete="off" minlength="3" required>
+                <form class="popup__form" name="form" method="post" novalidate>
+
+                    <input class="popup__name popup__input" id="name-input" type="text" name="name" placeholder="Название" autocomplete="off" minlength="2" required>
+                    <span class="popup__input-error name-input-error"></span>
+
+                    <input class="popup__about popup__input" id="about-input" type="url" name="job" placeholder="Ссылка на картинку" autocomplete="off" minlength="2" required>
+                    <span class="popup__input-error about-input-error"></span>
+
                     <button type="submit" class="popup__save-button">Создать</button>
+
                 </form>
             </div>
         </div>
@@ -85,6 +97,7 @@
             </article>
         </template>
 
+        <script src="./scripts/validate.js"></script>
         <script src="./scripts/initialCards.js"></script>
         <script src="./scripts/index.js"></script>
 
