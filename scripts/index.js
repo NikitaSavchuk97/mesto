@@ -2,8 +2,10 @@
 const elements = document.querySelector('.elements');
 
 // относящиеся ко всем попапам
-const popupAll = document.querySelector('.popup');
-const popupAllForm = popupAll.querySelector('.popup__form')
+const popupAll = Array.from(document.querySelectorAll('.popup'));
+// const popupAllOverlayClose = Array.from(document.querySelectorAll('.popup__overlay-close'));
+const popupAllForm = document.querySelector('.popup__form')
+
 
 
 // относящиеся к темплейту
@@ -67,12 +69,19 @@ const popupPhotoJobInput = popupPhotoForm.querySelector('.popup__about');
 
 
 
+
+
+
+
+
+
 function showInputError (popupAllForm, popupAllFormInput, errorMessage) {
     const popupAllSpanError = popupAllForm.querySelector(`.${popupAllFormInput.id}-error`);
     popupAllFormInput.classList.add('popup__input_type_error')
     popupAllSpanError.textContent = errorMessage;
     popupAllSpanError.classList.add('popup__input-error_type_active');
 }
+
 function hideInputError (popupAllForm, popupAllFormInput) {
     const popupAllSpanError = popupAllForm.querySelector(`.${popupAllFormInput.id}-error`);
     popupAllFormInput.classList.remove('popup__input_type_error')
@@ -116,18 +125,17 @@ function enableValidation () {
 
 function hasInvalidInput (popupAllFormInputList) {
     return popupAllFormInputList.some( function (popupAllFormInputListElement) {
-        console.log(popupAllFormInputListElement.validity.valid);
-        return popupAllFormInputListElement.validity.valid;
+        return !popupAllFormInputListElement.validity.valid;
     });
 }
 
 function toggleButtonState (popupAllFormInputList, popupAllFormSaveBtn) {
     if (hasInvalidInput(popupAllFormInputList)) {
-        popupAllFormSaveBtn.classList.add('popup__save-button_type_active');
-        popupAllFormSaveBtn.setAttribute('disabled', true);
+        popupAllFormSaveBtn.classList.add('popup__save-button_disabled');
+        popupAllFormSaveBtn.disabled = true;
     } else {
-        popupAllFormSaveBtn.classList.remove('popup__save-button_type_active');
-        popupAllFormSaveBtn.removeAttribute('disabled');
+        popupAllFormSaveBtn.classList.remove('popup__save-button_disabled');
+        popupAllFormSaveBtn.disabled = false;
     }
 }
 
@@ -150,8 +158,12 @@ enableValidation();
 
 
 
-
-
+// метод перебора массива для закрытия любого попапа при нажатии на задний фон
+popupAll.forEach(function (popupAllItem) {
+    popupAllItem.addEventListener('click', function (event) {
+        popupClose(event.target);
+    });
+});
 
 // метод перебора массива для добавления данных в каждую карточку
 initialCards.forEach(function (item) {
@@ -186,6 +198,18 @@ function addCard (newFlex) {
 function renderCard (flex) {
     elements.append(flex);
 }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

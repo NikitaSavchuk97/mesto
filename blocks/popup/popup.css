@@ -3,6 +3,8 @@
     align-items: center;
     justify-content: center;
 
+    cursor: pointer;
+
     position: fixed;
     top: 0;
     right: 0;

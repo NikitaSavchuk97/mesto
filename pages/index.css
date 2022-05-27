@@ -47,21 +47,15 @@
 
 @import url(../blocks/popup/__name/popup__name.css);
 
-
-
-
 @import url(../blocks/popup/__about/popup__about.css);
-
-
-
 
 @import url(../blocks/popup/__input-error/popup__input-error.css);
 @import url(../blocks/popup/__input-error/_type/popup__input-error_type_active.css);
 
-
+@import url(../blocks/popup/__overlay-close/popup__overlay-close.css);
 
 @import url(../blocks/popup/__save-button/popup__save-button.css);
-@import url(../blocks/popup/__save-button/_type/popup__save-button_type_active.css);
+@import url(../blocks/popup/__save-button/popup__save-button_disabled.css);
 
 @import url(../blocks/template-item/template-item.css);
 
