@@ -2,9 +2,9 @@
 const elements = document.querySelector('.elements');
 
 // относящиеся ко всем попапам
-const popupAll = document.querySelector('.popup');
-const popupAllArray = Array.from(document.querySelectorAll('.popup'));
-const popupAllForm = document.querySelector('.popup__form')
+const popupAll = document.querySelectorAll('.popup');
+const popupAllForm = document.querySelectorAll('.popup__form');
+const popupAllSaveButton = document.querySelector('.popup__save-button');
 
 
 
@@ -20,16 +20,17 @@ const profileInfoEditBtn = document.querySelector('.profile-info__edit-button');
 
 // относящиеся к попапу редактирования имени и призвания
 const popupInfo = document.querySelector('.popup_type_info');
-const popupInfoCloseBtn = popupInfo.querySelector('.popup__close');
+// const popupInfoCloseBtn = popupInfo.querySelector('.popup__close');
 const popupInfoForm = popupInfo.querySelector('.popup__form');
 const popupInfoNameInput = popupInfoForm.querySelector('.popup__name');
 const popupInfoJobInput = popupInfoForm.querySelector('.popup__about');
+const popupInfoSaveButton = popupInfoForm.querySelector('.popup__save-button');
 
 
 
 // относящиеся к попапу просмотра иллюстрации
 const popupIllustration = document.querySelector('.popup_type_illustration');
-const popupIllustrationCloseBtn = popupIllustration.querySelector('.popup__close');
+// const popupIllustrationCloseBtn = popupIllustration.querySelector('.popup__close');
 const popupIllustrationImage = popupIllustration.querySelector('.popup__image');
 const popupIllustrationSubtitle = popupIllustration.querySelector('.popup__subtitle');
 
@@ -40,21 +41,35 @@ const profileAddPhotoBtn = document.querySelector('.add-button');
 
 // относящиеся к попапу добавления фото
 const popupPhoto = document.querySelector('.popup_type_photo');
-const popupPhotoCloseBtn = popupPhoto.querySelector('.popup__close');
+// const popupPhotoCloseBtn = popupPhoto.querySelector('.popup__close');
 const popupPhotoForm = popupPhoto.querySelector('.popup__form');
 const popupPhotoNameInput = popupPhotoForm.querySelector('.popup__name');
 const popupPhotoJobInput = popupPhotoForm.querySelector('.popup__about');
+const popupPhotoSaveButton = popupPhotoForm.querySelector('.popup__save-button');
 
 
 
 
 
-
+/*
 // метод перебора массива для закрытия любого попапа при нажатии на задний фон
-popupAllArray.forEach(function (popupAllItem) {
-    popupAllItem.addEventListener('click', function (event) {
-        popupClose(event.target);
+popupAll.forEach(function (popupAllItem) {
+    popupAllItem.addEventListener('mousedown', function (event) {
+        closePopup(event.target);
     });   
+});
+*/
+
+// метод перебора массива для закрытия любого попапа при нажатии на крестик и задний фон
+popupAll.forEach((popupAllItem) => {
+    popupAllItem.addEventListener('mousedown', (evt) => {
+        if (evt.target.classList.contains('popup_active')) {
+            closePopup(popupAllItem)
+        }
+        if (evt.target.classList.contains('popup__close')) {
+          closePopup(popupAllItem)
+        }
+    });
 });
 
 
@@ -79,9 +94,9 @@ function createCard ({name, link}) {
     const elementLikeBtn = element.querySelector('.element__like');
     const elementDeleteBtn = element.querySelector('.element__delete');
     // слушатели вызова функций: удаления карточки, лайка и просмотра иллюстрации
-    elementLikeBtn.addEventListener('click', clickLikeHandler);
-    elementDeleteBtn.addEventListener('click', clickDeleteHandler);
-    elementPhoto.addEventListener('click', clickImageHandler);
+    elementLikeBtn.addEventListener('click', handleLikeClick);
+    elementDeleteBtn.addEventListener('click', handleDeleteClick);
+    elementPhoto.addEventListener('click', () => handleImageClick (name, link));
 
     elementPhoto.src = link;
     elementPhoto.alt = name;
@@ -101,44 +116,43 @@ function renderCard (flex) {
 
 
 // функции открытия/закрытия попапа
-function popupOpen (popupAll) {
+function openPopup (popupAll) {
     popupAll.classList.add('popup_active');
     // слушатель вызова функции закрытия попапа на кнопку ESC
-    document.addEventListener('keydown', popupAllCloseESC);
+    document.addEventListener('keydown', handleESCKey);
 }
-function popupClose (popupAll) {
+function closePopup (popupAll) {
     popupAll.classList.remove('popup_active');
+    document.removeEventListener('keydown', handleESCKey);
 }
 
-// фукция снятия слушателя вызова функции закрытия попапа на кнопку ESC
-function popupAllRemoveEscListener () {
-    document.removeEventListener('keydown', popupAllCloseESC);
-}
+
 
 // функции закрытия попапа на кнопку ESC
-function popupAllCloseESC (event) {
-    popupAllArray.forEach(function (popupAllItemESC) {
-        if (event.key === 'Escape') {
-            popupClose(popupAllItemESC);
-        }
-    });
+function handleESCKey (event) {
+    if (event.key === 'Escape') {
+        popupAll.forEach(function (popupAllItemESC) {
+            closePopup(popupAllItemESC);
+        });
+    }
 }
-
 
 
 // функция удаления карточки
-function clickDeleteHandler (evt) {
+function handleDeleteClick (evt) {
     evt.target.closest('.element').remove();
 }
 // функция переключения лайка
-function clickLikeHandler (evt) {
+function handleLikeClick (evt) {
     evt.target.classList.toggle('element__like_active');
 }
 // функция открытия попапа просмотра иллюстрации
-function clickImageHandler (evt) {
-    popupOpen(popupIllustration);
-    popupIllustrationImage.src = evt.target.src;
-    popupIllustrationSubtitle.textContent = evt.target.alt;
+function handleImageClick (name, link) {
+    openPopup(popupIllustration);
+    popupIllustrationImage.src = link; //evt.target.src;
+    popupIllustrationImage.alt = name;
+    popupIllustrationSubtitle.textContent = name; //evt.target.alt;
+    
 }
 
 
@@ -147,11 +161,13 @@ function clickImageHandler (evt) {
 // вызов функции отмены стандартного действие браузера
 // перенос полученных данных из формы имени и призвания в теги имени и призвания на странице
 // вызов функции закрытия попапа редактирования имени и призвания
-function submitPopupInfoFormHandler (evt) {
+function handleSubmitPopupInfoForm (evt) {
     evt.preventDefault();
     profileName.textContent = popupInfoNameInput.value;
     profileJob.textContent = popupInfoJobInput.value;
-    popupClose(popupInfo);
+    closePopup(popupInfo);
+    popupInfoSaveButton.disabled = true;
+    popupInfoSaveButton.classList.add('popup__save-button_disabled')
 }
 
 // функция отправки формы добавления фотографии. включает в себя:
@@ -159,49 +175,54 @@ function submitPopupInfoFormHandler (evt) {
 // вызов функции добавления карточки с любым именем и ссылкой
 // вызов функции закрытия попапа добавления фото
 // вызов метода очистки формы
-function submitPopupPhotoFormHandler (evt) {
+function handleSubmitPopupPhotoForm (evt) {
     evt.preventDefault();
     const newCard = createCard({name: popupPhotoNameInput.value,
                                 link: popupPhotoJobInput.value});
     addCard(newCard);
-    popupClose(popupPhoto);
+    
+    closePopup(popupPhoto);
     popupPhotoForm.reset();
+    popupPhotoSaveButton.disabled = true;
+    popupPhotoSaveButton.classList.add('popup__save-button_disabled')
 }
 
 
 
 // слушатель вызова функции открытия попапа редактирования имени и призвания
 profileInfoEditBtn.addEventListener ('click', function() {
-    popupOpen(popupInfo);
+    openPopup(popupInfo);
     popupInfoNameInput.value = profileName.textContent;
     popupInfoJobInput.value = profileJob.textContent;
 });
+/*
 // слушатель вызова функции закрытия попапа редактирования имени и призвания
 popupInfoCloseBtn.addEventListener ('click', function() {
-    popupClose(popupInfo);
-    popupAllRemoveEscListener();
+    closePopup(popupInfo);
 });
+*/
 // слушатель вызова функции отправки формы редактирования имени и призвания
-popupInfoForm.addEventListener('submit', submitPopupInfoFormHandler);
+popupInfoForm.addEventListener('submit', handleSubmitPopupInfoForm);
 
 
 
-// слушатель вызова функции закрытия попапа добавления фото
-popupPhotoCloseBtn.addEventListener ('click', function () {
-    popupClose(popupPhoto);
-    popupAllRemoveEscListener();
-});
 // слушатель вызова функции открытия попапа добавления фото
 profileAddPhotoBtn.addEventListener('click', function() {
-    popupOpen(popupPhoto);
+    openPopup(popupPhoto);
 });
+/*
+// слушатель вызова функции закрытия попапа добавления фото
+popupPhotoCloseBtn.addEventListener ('click', function () {
+    closePopup(popupPhoto);
+});
+*/
 // слушатель вызова функции отправки формы добавления фото
-popupPhotoForm.addEventListener('submit', submitPopupPhotoFormHandler);
+popupPhotoForm.addEventListener('submit', handleSubmitPopupPhotoForm);
 
 
-
+/*
 // слушатель вызова функции закрытия попапа просмотра иллюстрации
 popupIllustrationCloseBtn.addEventListener ('click', function () {
-    popupClose(popupIllustration);
-    popupAllRemoveEscListener();
+    closePopup(popupIllustration);
 });
+*/

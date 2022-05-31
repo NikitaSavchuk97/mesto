@@ -3,6 +3,13 @@
     right: -40px;
     top: -40px;
 
+    background-image: url(../../../images/__close.svg);
+    background-position: center;
+    background-size: cover;
+    
+    width: 32px;
+    height: 32px;
+
     margin: 0;
     padding: 0;
 
@@ -10,8 +17,6 @@
 
     border: none;
     cursor: pointer;
-
-    z-index: 99;
 
     background-color: transparent;
 }
@@ -30,5 +35,8 @@
     .popup__close {
         right: 0;
         top: -36px;
+
+        width: 20px;
+        height: 20px;
     }
 }
