@@ -91,7 +91,6 @@ initialCards.forEach(function (item) {
 
 
 
-
 // функция разметки карточки
 function createCard ({name, link}) {
     // относящиеся к разметке карточки
