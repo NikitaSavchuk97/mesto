@@ -1,3 +1,10 @@
+import { initialCards, validationConfiguration } from "./initialCards.js";
+import FormValidator from "./FormValidator.js";
+
+
+
+
+
 // относящиеся к месту для вставки карточек
 const elements = document.querySelector('.elements');
 
@@ -186,6 +193,18 @@ function handleSubmitPopupPhotoForm (evt) {
     popupPhotoSaveButton.disabled = true;
     popupPhotoSaveButton.classList.add('popup__save-button_disabled')
 }
+
+
+
+
+const FormValidators = {};
+
+Array.from(popupAllForm).forEach( function(formElement){
+    FormValidators[formElement.name] = new FormValidator(validationConfiguration, formElement);
+    FormValidators[formElement.name].enableValidation();
+});
+
+
 
 
 

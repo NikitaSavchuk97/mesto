@@ -1,15 +1,4 @@
-
-export const validationConfiguration = {
-    formSelector: 'popup__form',
-    inputSelector: 'popup__input',
-    submitButtonSelector: 'popup__save-button',
-    inactiveButtonClass: 'popup__save-button_disabled',
-    inputErrorClass: 'popup__input_type_error',
-    errorClass: 'popup__input-error_type_active'
-}
-
-
-export class FormValidator {
+class FormValidator {
     constructor (configuration, form) {
         this._formSelector = configuration.formSelector;
         this._inputSelector = configuration.inputSelector;
@@ -21,7 +10,7 @@ export class FormValidator {
     }
 
     // #1
-    _enableValidation () {
+    enableValidation () {
         const inputElementList = Array.from(this._form.querySelectorAll(`.${this._inputSelector}`));
         const formSaveButton = this._form.querySelector(`.${this._submitButtonSelector}`);
 
@@ -75,11 +64,9 @@ export class FormValidator {
         spanError.textContent = '';
         spanError.classList.remove(this._errorClass);
     }
-
-    _enableValidation(configuration); 
 }
 
-
+export default FormValidator;
 
 /*
 // #1

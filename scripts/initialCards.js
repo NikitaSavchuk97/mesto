@@ -1,5 +1,14 @@
+
+export const validationConfiguration = {
+  inputSelector: 'popup__input',
+  submitButtonSelector: 'popup__save-button',
+  inactiveButtonClass: 'popup__save-button_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__input-error_type_active'
+}
+
 // относящиеся к стандартным фотографиям
-const initialCards = [
+export const initialCards = [
     {
       name: 'Самое время отдохнуть',
       link: 'https://images.unsplash.com/photo-1592528855735-14e349c28919?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1935&q=80'
