@@ -198,7 +198,7 @@ function handleSubmitPopupPhotoForm (evt) {
 
 const FormValidators = {};
 
-Array.from(popupAllForm).forEach( function(formElement){
+Array.from(document.forms).forEach( function(formElement){
     FormValidators[formElement.name] = new FormValidator(validationConfiguration, formElement);
     FormValidators[formElement.name].enableValidation();
 });
