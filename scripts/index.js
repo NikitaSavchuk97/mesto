@@ -1,7 +1,6 @@
-import { initialCards, validationConfiguration } from "./initialCards.js";
+// импорты модулей
+import { initialCards, validationConfiguration } from "./constants.js";
 import FormValidator from "./FormValidator.js";
-
-
 
 
 
@@ -85,6 +84,13 @@ popupAll.forEach((popupAllItem) => {
 initialCards.forEach(function (item) {
     const card = createCard(item);
     renderCard(card);
+});
+
+
+
+// метод перебора массива форм 
+Array.from(document.forms).forEach( function(formElement){
+    formElement.name = new FormValidator(validationConfiguration, formElement).enableValidation();
 });
 
 
@@ -192,18 +198,6 @@ function handleSubmitPopupPhotoForm (evt) {
     popupPhotoSaveButton.disabled = true;
     popupPhotoSaveButton.classList.add('popup__save-button_disabled')
 }
-
-
-
-
-const FormValidators = {};
-
-Array.from(document.forms).forEach( function(formElement){
-    FormValidators[formElement.name] = new FormValidator(validationConfiguration, formElement);
-    FormValidators[formElement.name].enableValidation();
-});
-
-
 
 
 
