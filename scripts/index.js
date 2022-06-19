@@ -5,6 +5,9 @@ import Card from "./Card.js";
 
 
 
+
+
+
 // относящиеся к месту для вставки карточек
 const elements = document.querySelector('.elements');
 
@@ -42,6 +45,9 @@ const popupPhotoSaveButton = popupPhotoForm.querySelector('.popup__save-button')
 
 
 
+
+
+
 // функция открытия попапа просмотра иллюстрации
 const handleImageClick = (name, link) => {
     openPopup(popupIllustration);
@@ -49,6 +55,7 @@ const handleImageClick = (name, link) => {
     popupIllustrationImage.alt = name;
     popupIllustrationSubtitle.textContent = name; //evt.target.alt;
 }
+
 
 
 // функция вставки нового элемента в начало
@@ -125,6 +132,9 @@ const handleSubmitPopupPhotoForm = (evt) => {
 
 
 
+
+
+
 // метод перебора массива для добавления данных в каждую карточку
 initialCards.forEach((initialCard) => {
     const card = new Card (initialCard, template, handleImageClick);
@@ -145,14 +155,17 @@ popupAll.forEach((popupAllItem) => {
 });
 
 // метод перебора массива форм 
-Array.from(document.forms).forEach( function(formElement){
+Array.from(document.forms).forEach((formElement) => {
     formElement.name = new FormValidator(validationConfiguration, formElement).enableValidation();
 });
 
 
 
+
+
+
 // слушатель вызова функции открытия попапа редактирования имени и призвания
-profileInfoEditBtn.addEventListener ('click', function() {
+profileInfoEditBtn.addEventListener ('click', () => {
     openPopup(popupInfo);
     popupInfoNameInput.value = profileName.textContent;
     popupInfoJobInput.value = profileJob.textContent;
@@ -164,9 +177,9 @@ popupInfoForm.addEventListener('submit', handleSubmitPopupInfoForm);
 
 
 // слушатель вызова функции открытия попапа добавления фото
-profileAddPhotoBtn.addEventListener('click', function() {
-    openPopup(popupPhoto);
+profileAddPhotoBtn.addEventListener('click', () => {
     popupPhotoForm.reset();
+    openPopup(popupPhoto);
 });
 
 // слушатель вызова функции отправки формы добавления фото
