@@ -1,10 +1,10 @@
 // импорты модулей
-import { initialCards, validationConfiguration, selectors} from "./constants.js";
+import { initialCards, validationConfiguration } from "./constants.js";
 import FormValidator from "./FormValidator.js";
 import Card from "./Card.js";
 
 
-/*
+
 // относящиеся к месту для вставки карточек
 const elements = document.querySelector('.elements');
 
@@ -39,7 +39,7 @@ const popupPhotoForm = popupPhoto.querySelector('.popup__form');
 const popupPhotoNameInput = popupPhotoForm.querySelector('.popup__name');
 const popupPhotoJobInput = popupPhotoForm.querySelector('.popup__about');
 const popupPhotoSaveButton = popupPhotoForm.querySelector('.popup__save-button');
-*/
+
 
 
 // функция открытия попапа просмотра иллюстрации
