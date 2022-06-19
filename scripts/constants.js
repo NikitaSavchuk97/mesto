@@ -1,4 +1,4 @@
-
+// относящиеся к валидации форм попапов
 export const validationConfiguration = {
   inputSelector: 'popup__input',
   submitButtonSelector: 'popup__save-button',
@@ -34,3 +34,40 @@ export const initialCards = [
       link: 'https://images.unsplash.com/photo-1598894591353-9e7c935dd774?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80'
     }
 ];
+
+export const selectors = {
+    // относящиеся к месту для вставки карточек
+    elements = document.querySelector('.elements'),
+
+    // относящиеся ко всем попапам
+    popupAll = document.querySelectorAll('.popup'),
+
+    template = document.querySelector('.template-item'),
+
+    // относящиеся к тегам имени и призвания на странице
+    profileName = document.querySelector('.profile-info__name'),
+    profileJob = document.querySelector('.profile-info__title'),
+    profileInfoEditBtn = document.querySelector('.profile-info__edit-button'),
+
+    // относящиеся к попапу редактирования имени и призвания
+    popupInfo = document.querySelector('.popup_type_info'),
+    popupInfoForm = popupInfo.querySelector('.popup__form'),
+    popupInfoNameInput = popupInfoForm.querySelector('.popup__name'),
+    popupInfoJobInput = popupInfoForm.querySelector('.popup__about'),
+    popupInfoSaveButton = popupInfoForm.querySelector('.popup__save-button'),
+
+    // относящиеся к попапу просмотра иллюстрации
+    popupIllustration = document.querySelector('.popup_type_illustration'),
+    popupIllustrationImage = popupIllustration.querySelector('.popup__image'),
+    popupIllustrationSubtitle = popupIllustration.querySelector('.popup__subtitle'),
+
+    // относящиеся к тегам добавления фото на странице
+    profileAddPhotoBtn = document.querySelector('.add-button'),
+
+    // относящиеся к попапу добавления фото
+    popupPhoto = document.querySelector('.popup_type_photo'),
+    popupPhotoForm = popupPhoto.querySelector('.popup__form'),
+    popupPhotoNameInput = popupPhotoForm.querySelector('.popup__name'),
+    popupPhotoJobInput = popupPhotoForm.querySelector('.popup__about'),
+    popupPhotoSaveButton = popupPhotoForm.querySelector('.popup__save-button'),
+}
