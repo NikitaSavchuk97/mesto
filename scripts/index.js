@@ -119,7 +119,6 @@ const handleSubmitPopupPhotoForm = (evt) => {
     addCard(newCardElement);
     
     closePopup(popupPhoto);
-    popupPhotoForm.reset();
     popupPhotoSaveButton.disabled = true;
     popupPhotoSaveButton.classList.add('popup__save-button_disabled')
 }
@@ -167,6 +166,7 @@ popupInfoForm.addEventListener('submit', handleSubmitPopupInfoForm);
 // слушатель вызова функции открытия попапа добавления фото
 profileAddPhotoBtn.addEventListener('click', function() {
     openPopup(popupPhoto);
+    popupPhotoForm.reset();
 });
 
 // слушатель вызова функции отправки формы добавления фото
