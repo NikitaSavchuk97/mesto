@@ -1,47 +1,14 @@
 // импорты модулей
-import { initialCards, validationConfiguration } from "./constants.js";
+import { validationConfiguration, initialCards, elements, popupsAll, popupsAllForms, 
+        template, profileName, profileJob, profileInfoEditBtn, popupInfo, popupInfoForm, 
+        popupInfoNameInput, popupInfoJobInput, popupIllustration, popupIllustrationImage, 
+        popupIllustrationSubtitle, profileAddPhotoBtn, popupPhoto, popupPhotoForm, 
+        popupPhotoNameInput, popupPhotoJobInput } from "./constants.js";
 import FormValidator from "./FormValidator.js";
 import Card from "./Card.js";
 
-
-
-
-
-
-// относящиеся к месту для вставки карточек
-const elements = document.querySelector('.elements');
-
-// относящиеся ко всем попапам
-const popupAll = document.querySelectorAll('.popup');
-
-const template = document.querySelector('.template-item');
-
-// относящиеся к тегам имени и призвания на странице
-const profileName = document.querySelector('.profile-info__name');
-const profileJob = document.querySelector('.profile-info__title');
-const profileInfoEditBtn = document.querySelector('.profile-info__edit-button');
-
-// относящиеся к попапу редактирования имени и призвания
-const popupInfo = document.querySelector('.popup_type_info');
-const popupInfoForm = popupInfo.querySelector('.popup__form');
-const popupInfoNameInput = popupInfoForm.querySelector('.popup__name');
-const popupInfoJobInput = popupInfoForm.querySelector('.popup__about');
-const popupInfoSaveButton = popupInfoForm.querySelector('.popup__save-button');
-
-// относящиеся к попапу просмотра иллюстрации
-const popupIllustration = document.querySelector('.popup_type_illustration');
-const popupIllustrationImage = popupIllustration.querySelector('.popup__image');
-const popupIllustrationSubtitle = popupIllustration.querySelector('.popup__subtitle');
-
-// относящиеся к тегам добавления фото на странице
-const profileAddPhotoBtn = document.querySelector('.add-button');
-
-// относящиеся к попапу добавления фото
-const popupPhoto = document.querySelector('.popup_type_photo');
-const popupPhotoForm = popupPhoto.querySelector('.popup__form');
-const popupPhotoNameInput = popupPhotoForm.querySelector('.popup__name');
-const popupPhotoJobInput = popupPhotoForm.querySelector('.popup__about');
-const popupPhotoSaveButton = popupPhotoForm.querySelector('.popup__save-button');
+const addPhotoValid = new FormValidator (validationConfiguration, popupPhotoForm);
+const addInfoValid = new FormValidator (validationConfiguration, popupInfoForm);
 
 
 
@@ -73,7 +40,6 @@ const renderCard = (flex) => {
 // функции открытия/закрытия попапа
 const openPopup = (popupAll) => {
     popupAll.classList.add('popup_active');
-    // слушатель вызова функции закрытия попапа на кнопку ESC
     document.addEventListener('keydown', handleESCKey);
 }
 const closePopup = (popupAll) => {
@@ -86,11 +52,18 @@ const closePopup = (popupAll) => {
 // функции закрытия попапа на кнопку ESC
 const handleESCKey = (event) => {
     if (event.key === 'Escape') {
-        popupAll.forEach(function (popupAllItemESC) {
-            closePopup(popupAllItemESC);
-        });
-    }
+        popupsAll.forEach(closePopup)
+    };
 }
+
+
+
+//функция передачи данных для создания карточки
+const createCard = (item) => {
+    const card = new Card (item, template, handleImageClick);
+    const cardElement = card.createCard();
+    return cardElement;
+};
 
 
 
@@ -105,8 +78,6 @@ const handleSubmitPopupInfoForm = (evt) => {
     profileJob.textContent = popupInfoJobInput.value;
 
     closePopup(popupInfo);
-    popupInfoSaveButton.disabled = true;
-    popupInfoSaveButton.classList.add('popup__save-button_disabled')
 }
 
 // функция отправки формы добавления фотографии. включает в себя:
@@ -121,29 +92,27 @@ const handleSubmitPopupPhotoForm = (evt) => {
         name: popupPhotoNameInput.value,
         link: popupPhotoJobInput.value,
     };
-    const newCard = new Card(newCardValues, template, handleImageClick);
-    const newCardElement = newCard.createCard();
-    addCard(newCardElement);
+    const newCard = createCard(newCardValues);
+    addCard(newCard);
     
     closePopup(popupPhoto);
-    popupPhotoSaveButton.disabled = true;
-    popupPhotoSaveButton.classList.add('popup__save-button_disabled')
 }
 
 
 
-
-
-
-// метод перебора массива для добавления данных в каждую карточку
+// метод перебора массива карточек для добавления данных в каждую карточку
 initialCards.forEach((initialCard) => {
-    const card = new Card (initialCard, template, handleImageClick);
-    const cardElement = card.createCard();
-    renderCard(cardElement);
+    const card = createCard(initialCard);
+    renderCard(card);
+});
+
+// метод перебора массива форм и выключение функции валидации для каждой
+Array.from(popupsAllForms).forEach((formElement) => {
+    formElement.name = new FormValidator(validationConfiguration, formElement).enableValidation();
 });
 
 // метод перебора массива для закрытия любого попапа при нажатии на крестик и задний фон
-popupAll.forEach((popupAllItem) => {
+popupsAll.forEach((popupAllItem) => {
     popupAllItem.addEventListener('mousedown', (evt) => {
         if (evt.target.classList.contains('popup_active')) {
             closePopup(popupAllItem)
@@ -154,19 +123,12 @@ popupAll.forEach((popupAllItem) => {
     });
 });
 
-// метод перебора массива форм 
-Array.from(document.forms).forEach((formElement) => {
-    formElement.name = new FormValidator(validationConfiguration, formElement).enableValidation();
-});
-
-
-
-
 
 
 // слушатель вызова функции открытия попапа редактирования имени и призвания
 profileInfoEditBtn.addEventListener ('click', () => {
     openPopup(popupInfo);
+    addInfoValid.disableValidation();
     popupInfoNameInput.value = profileName.textContent;
     popupInfoJobInput.value = profileJob.textContent;
 });
@@ -179,6 +141,7 @@ popupInfoForm.addEventListener('submit', handleSubmitPopupInfoForm);
 // слушатель вызова функции открытия попапа добавления фото
 profileAddPhotoBtn.addEventListener('click', () => {
     popupPhotoForm.reset();
+    addPhotoValid.disableValidation();
     openPopup(popupPhoto);
 });
 
@@ -190,57 +153,43 @@ popupPhotoForm.addEventListener('submit', handleSubmitPopupPhotoForm);
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// const popupIllustrationCloseBtn = popupIllustration.querySelector('.popup__close');
-// const popupPhotoCloseBtn = popupPhoto.querySelector('.popup__close');
-// const popupInfoCloseBtn = popupInfo.querySelector('.popup__close');
-
 /*
-// слушатель вызова функции закрытия попапа просмотра иллюстрации
-popupIllustrationCloseBtn.addEventListener ('click', function () {
-    closePopup(popupIllustration);
-});
-*/
+// относящиеся к месту для вставки карточек
+const elements = document.querySelector('.elements');
 
-/*
-// слушатель вызова функции закрытия попапа добавления фото
-popupPhotoCloseBtn.addEventListener ('click', function () {
-    closePopup(popupPhoto);
-});
-*/
+// относящиеся ко всем попапам
+const popupsAll = document.querySelectorAll('.popup');
+const popupsAllForms = document.querySelectorAll('.popup__form');
 
-/*
-// слушатель вызова функции закрытия попапа редактирования имени и призвания
-popupInfoCloseBtn.addEventListener ('click', function() {
-    closePopup(popupInfo);
-});
-*/
+const template = document.querySelector('.template-item');
 
-/*
-// метод перебора массива для закрытия любого попапа при нажатии на задний фон
-popupAll.forEach(function (popupAllItem) {
-    popupAllItem.addEventListener('mousedown', function (event) {
-        closePopup(event.target);
-    });   
-});
+// относящиеся к тегам имени и призвания на странице
+const profileName = document.querySelector('.profile-info__name');
+const profileJob = document.querySelector('.profile-info__title');
+const profileInfoEditBtn = document.querySelector('.profile-info__edit-button');
+
+// относящиеся к попапу редактирования имени и призвания
+const popupInfo = document.querySelector('.popup_type_info');
+const popupInfoForm = popupInfo.querySelector('.popup__form');
+const popupInfoNameInput = popupInfoForm.querySelector('.popup__name');
+const popupInfoJobInput = popupInfoForm.querySelector('.popup__about');
+const popupInfoSaveButton = popupInfoForm.querySelector('.popup__save-button');
+
+// относящиеся к попапу просмотра иллюстрации
+const popupIllustration = document.querySelector('.popup_type_illustration');
+const popupIllustrationImage = popupIllustration.querySelector('.popup__image');
+const popupIllustrationSubtitle = popupIllustration.querySelector('.popup__subtitle');
+
+// относящиеся к тегам добавления фото на странице
+const profileAddPhotoBtn = document.querySelector('.add-button');
+
+// относящиеся к попапу добавления фото
+const popupPhoto = document.querySelector('.popup_type_photo');
+const popupPhotoForm = popupPhoto.querySelector('.popup__form');
+const popupPhotoNameInput = popupPhotoForm.querySelector('.popup__name');
+const popupPhotoJobInput = popupPhotoForm.querySelector('.popup__about');
+const popupPhotoSaveButton = popupPhotoForm.querySelector('.popup__save-button');
+
+const addPhotoValid = new FormValidator (validationConfiguration, popupPhotoForm);
+const addInfoValid = new FormValidator (validationConfiguration, popupInfoForm);
 */
