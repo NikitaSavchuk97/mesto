@@ -8,7 +8,9 @@ import FormValidator from "./FormValidator.js";
 import Card from "./Card.js";
 
 const addPhotoValid = new FormValidator (validationConfiguration, popupPhotoForm);
+addPhotoValid.enableValidation();
 const addInfoValid = new FormValidator (validationConfiguration, popupInfoForm);
+addInfoValid.enableValidation();
 
 
 
@@ -104,11 +106,6 @@ const handleSubmitPopupPhotoForm = (evt) => {
 initialCards.forEach((initialCard) => {
     const card = createCard(initialCard);
     renderCard(card);
-});
-
-// метод перебора массива форм и выключение функции валидации для каждой
-Array.from(popupsAllForms).forEach((formElement) => {
-    formElement.name = new FormValidator(validationConfiguration, formElement).enableValidation();
 });
 
 // метод перебора массива для закрытия любого попапа при нажатии на крестик и задний фон

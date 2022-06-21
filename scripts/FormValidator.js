@@ -58,8 +58,8 @@ class FormValidator {
     }
 
     disableValidation = () => {
+        this._disableSubmitBtn();
         this._inputElementList.forEach((inputElement) => {
-            this._disableSubmitBtn();
             this._hideInputError(inputElement);
         });
     }
@@ -67,10 +67,10 @@ class FormValidator {
         this._inputElementList.forEach((inputElement) => {
             inputElement.addEventListener('input', () => {
                 this._isValid (inputElement);
-                this._toggleButtonState (this._inputElementList, this._formSaveButton);
+                this._toggleButtonState ();
             });
         });
-        this._toggleButtonState (this._inputElementList, this._formSaveButton);
+        this._toggleButtonState ();
     }
 }
 
