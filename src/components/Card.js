@@ -1,9 +1,11 @@
+import PopupImage from "./PopupImage.js";
+
 class Card {
-    constructor (configuration, template, handleImageClick) {
+    constructor (configuration, template, popupIllustration) {
         this._name = configuration.name;
         this._link = configuration.link;
         this._template = template;
-        this._handleImageClick = handleImageClick;
+        this._popupIllustration = popupIllustration;
     }
 
     _getTemplate = () => {
@@ -41,6 +43,10 @@ class Card {
     _handleDeleteClick = () => {
         this._element.remove();
     }
+    
+    _handleImageClick = () => {
+        this._popupIllustration({name: this._name, link: this._link})
+    }
 
     // слушатели вызова функций: удаления карточки, лайка и просмотра иллюстрации
     _setEventListeners = () => {
@@ -53,7 +59,7 @@ class Card {
         });
 
         this._elementPhoto.addEventListener('click', () => {
-            this._handleImageClick (this._name, this._link);
+            this._handleImageClick();
         });
     }
 }

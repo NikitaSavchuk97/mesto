@@ -1,10 +1,51 @@
+// относящиеся к месту для вставки карточек
+const elements = document.querySelector('.elements');
+
+const template = document.querySelector('.template-item');
+
+// относящиеся к тегам на странице
+const profileName = document.querySelector('.profile-info__name');
+const profileJob = document.querySelector('.profile-info__title');
+const profileInfoEditBtn = document.querySelector('.profile-info__edit-button');
+const profileAddPhotoBtn = document.querySelector('.add-button');
+
+// относящиеся к попапу редактирования имени и призвания
+const popupInfo = document.querySelector('.popup_type_info');
+const popupInfoForm = popupInfo.querySelector('.popup__form');
+const popupInfoNameInput = popupInfoForm.querySelector('.popup__name');
+const popupInfoJobInput = popupInfoForm.querySelector('.popup__about');
+
+// относящиеся к попапу просмотра иллюстрации
+const popupIllustration = document.querySelector('.popup_type_illustration');
+const popupIllustrationImage = popupIllustration.querySelector('.popup__image');
+const popupIllustrationSubtitle = popupIllustration.querySelector('.popup__subtitle');
+
+// относящиеся к попапу добавления фото
+const popupPhoto = document.querySelector('.popup_type_photo');
+const popupPhotoForm = popupPhoto.querySelector('.popup__form');
+const popupPhotoNameInput = popupPhotoForm.querySelector('.popup__name');
+const popupPhotoJobInput = popupPhotoForm.querySelector('.popup__about');
+
+
+
 // относящиеся к валидации форм
 const validationConfiguration = {
   inputSelector: 'popup__input',
   submitButtonSelector: 'popup__save-button',
   inactiveButtonClass: 'popup__save-button_disabled',
   inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__input-error_type_active'
+  errorClass: 'popup__input-error_type_active',
+}
+
+// относящиеся к попапам
+const popupConfiguration = {
+  popupCloseBtnSelector: 'popup__close',
+  popupActiveSelector: 'popup_active',
+}
+
+const popupImageConfiguration = {
+  popupIllustrationImageSelector: 'popup__image',
+  popupIllustrationSubtitleSelector: 'popup__subtitle',
 }
 
 
@@ -39,48 +80,14 @@ const initialCards = [
 
 
 
-// относящиеся к месту для вставки карточек
-const elements = document.querySelector('.elements');
-
-// относящиеся ко всем попапам
-const popupsAll = document.querySelectorAll('.popup');
-const popupsAllForms = document.querySelectorAll('.popup__form');
-
-const template = document.querySelector('.template-item');
-
-// относящиеся к тегам на странице
-const profileName = document.querySelector('.profile-info__name');
-const profileJob = document.querySelector('.profile-info__title');
-const profileInfoEditBtn = document.querySelector('.profile-info__edit-button');
-const profileAddPhotoBtn = document.querySelector('.add-button');
-
-// относящиеся к попапу редактирования имени и призвания
-const popupInfo = document.querySelector('.popup_type_info');
-const popupInfoForm = popupInfo.querySelector('.popup__form');
-const popupInfoNameInput = popupInfoForm.querySelector('.popup__name');
-const popupInfoJobInput = popupInfoForm.querySelector('.popup__about');
-
-// относящиеся к попапу просмотра иллюстрации
-const popupIllustration = document.querySelector('.popup_type_illustration');
-const popupIllustrationImage = popupIllustration.querySelector('.popup__image');
-const popupIllustrationSubtitle = popupIllustration.querySelector('.popup__subtitle');
-
-// относящиеся к попапу добавления фото
-const popupPhoto = document.querySelector('.popup_type_photo');
-const popupPhotoForm = popupPhoto.querySelector('.popup__form');
-const popupPhotoNameInput = popupPhotoForm.querySelector('.popup__name');
-const popupPhotoJobInput = popupPhotoForm.querySelector('.popup__about');
-
-
-
 
 
 export {
   validationConfiguration,
+  popupConfiguration,
+  popupImageConfiguration,
   initialCards,
   elements,
-  popupsAll,
-  popupsAllForms,
   template,
   profileName,
   profileJob,
