@@ -1,4 +1,4 @@
-import PopupImage from "./PopupImage.js";
+import PopupImage from "./PopupWithImage.js";
 
 class Card {
     constructor (configuration, template, popupIllustration) {
@@ -16,9 +16,7 @@ class Card {
         return element;
     }
 
-    // функция разметки карточки
     createCard = () => {
-        // относящиеся к разметке карточки
         this._element = this._getTemplate();
         this._elementPhoto = this._element.querySelector('.element__photo');
         this._elementTitle = this._element.querySelector('.element__title');
@@ -34,12 +32,10 @@ class Card {
         return this._element;
     }
 
-    // функция переключения лайка
     _handleLikeClick = () => {
         this._elementLikeBtn.classList.toggle('element__like_active');
     }
 
-    // функция удаления карточки
     _handleDeleteClick = () => {
         this._element.remove();
     }
@@ -48,7 +44,6 @@ class Card {
         this._popupIllustration({name: this._name, link: this._link})
     }
 
-    // слушатели вызова функций: удаления карточки, лайка и просмотра иллюстрации
     _setEventListeners = () => {
         this._elementLikeBtn.addEventListener('click', () => {
             this._handleLikeClick();

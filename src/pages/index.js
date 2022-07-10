@@ -1,26 +1,21 @@
-// импорты модулей
 import {
     validationConfiguration,
     popupConfiguration,
-    popupImageConfiguration,
-    initialCards, 
-    elements,
-    template, 
-    profileName, 
-    profileJob, 
+    popupWithImageConfiguration,
+    popupWithFormConfiguration,
+    userInfoConfiguration,
+    sectionConfiguration,
+    initialCards,
+    template,
     profileInfoEditBtn, 
     popupInfo, 
     popupInfoForm, 
-    popupInfoNameInput, 
+    popupInfoNameInput,
     popupInfoJobInput, 
-    popupIllustration, 
-    popupIllustrationImage, 
-    popupIllustrationSubtitle, 
+    popupIllustration,
     profileAddPhotoBtn, 
     popupPhoto, 
-    popupPhotoForm, 
-    popupPhotoNameInput, 
-    popupPhotoJobInput,
+    popupPhotoForm,
 } from "../utils/constants.js";
 
 import '../pages/index.css'
@@ -28,117 +23,98 @@ import FormValidator from "../components/FormValidator.js";
 import Card from "../components/Card.js";
 import Section from "../components/Section.js"
 import Popup from "../components/Popup.js"
-import PopupImage from '../components/PopupImage.js'
-
-const addPhotoValid = new FormValidator (validationConfiguration, popupPhotoForm);
-
-const addInfoValid = new FormValidator (validationConfiguration, popupInfoForm);
-
-const closeOpenPopupInfo = new Popup (popupInfo, popupConfiguration);
-
-const closeOpenPopupPhoto = new Popup (popupPhoto, popupConfiguration);
-
-const popupImage = new PopupImage (popupIllustration, popupConfiguration, popupImageConfiguration);
+import PopupWithImage from '../components/PopupWithImage.js'
+import PopupWithForm from "../components/PopupWithForm.js";
+import UserInfo from "../components/UserInfo.js";
 
 
-addPhotoValid.enableValidation();
-addInfoValid.enableValidation();
 
-/*
-const renderElements = new Section ({
-        items: initialCards.reverse(),
-        renderer: createCard,
-    }, elements
+const addPhotoValid = new FormValidator (
+    validationConfiguration,
+    popupPhotoForm,
 );
-*/
 
+const addInfoValid = new FormValidator (
+    validationConfiguration,
+    popupInfoForm,
+);
 
+const closeOpenPopupInfo = new Popup (
+    popupInfo,
+    popupConfiguration,
+);
 
+const closeOpenPopupPhoto = new Popup (
+    popupPhoto,
+    popupConfiguration,
+);
 
+const popupImage = new PopupWithImage (
+    popupIllustration,                                  
+    popupConfiguration,
+    popupWithImageConfiguration,
+);
 
+const userInfoClass = new UserInfo (
+    userInfoConfiguration,
+);
 
+const renderElements = new Section (
+    sectionConfiguration,
+    {
+        items: initialCards.reverse(),
+        renderer: createCard
+    },
+);
 
-
-
-
-
-
-
-
-
-/*
-// функции открытия/закрытия попапа
-const openPopup = (popupAll) => {
-    popupAll.classList.add('popup_active');
-    document.addEventListener('keydown', handleESCKey);
-}
-const closePopup = (popupAll) => {
-    popupAll.classList.remove('popup_active');
-    document.removeEventListener('keydown', handleESCKey);
-}
-
-
-// функции закрытия попапа на кнопку ESC
-const handleESCKey = (event) => {
-    if (event.key === 'Escape') {
-        popupsAll.forEach(closePopup)
-    };
-}
-
-// метод перебора массива для закрытия любого попапа при нажатии на крестик и задний фон
-popupsAll.forEach((popupAllItem) => {
-    popupAllItem.addEventListener('mousedown', (evt) => {
-        if (evt.target.classList.contains('popup_active')) {
-            closePopup(popupAllItem)
+const popupInfoFormClass = new PopupWithForm (
+    popupInfo,
+    popupConfiguration,
+    popupWithFormConfiguration,
+    {
+        callBack: () => {
+            userInfoClass.setUserInfo( popupInfoFormClass._getInputvalues() )
         }
-        if (evt.target.classList.contains('popup__close')) {
-          closePopup(popupAllItem)
+    },
+);
+
+const popupPhotoFormClass = new PopupWithForm (
+    popupPhoto,
+    popupConfiguration,
+    popupWithFormConfiguration,
+    {
+        callBack: () => {
+            const newCard = createCard( popupPhotoFormClass._getInputvalues() );
+            renderElements.addItem(newCard);
         }
-    });
-});
-*/
+    },
+);
 
 
 
+// функция открытия попапа добавления фото
+const handleOpenPopupPhotoForm = () => {
+    popupPhotoForm.reset();
+    addPhotoValid.disableValidation();
+    closeOpenPopupPhoto.open();
+};
 
 
 
-
-
-
-
-
-
-
-/*
-// функция открытия попапа просмотра иллюстрации
-const handleImageClick = (name, link) => {
-    openPopup(popupIllustration);
-    popupIllustrationImage.src = link; //evt.target.src;
-    popupIllustrationImage.alt = name;
-    popupIllustrationSubtitle.textContent = name; //evt.target.alt;
-}
-*/
-
-
-// функция вставки нового элемента в начало
-const addCard = (newFlex) => {
-    elements.prepend(newFlex);
-}
-
-// функция вставки стандартного элемента в конец
-const renderCard = (flex) => {
-    elements.append(flex);
-}
-
-
-
-
+// функция открытия попапа редактирования имени и призвания
+const handleOpenPopupInfoForm = () => {
+    addInfoValid.disableValidation();
+    closeOpenPopupInfo.open();
+    
+    const {name, job} = userInfoClass.getUserInfo()
+    popupInfoNameInput.value = name;
+    popupInfoJobInput.value = job;
+};
 
 
 
 //функция передачи данных для создания карточки
-const createCard = (item) => {
+function createCard (item) {
     const card = new Card (item, template, popupImage.open);
     const cardElement = card.createCard();
     return cardElement;
@@ -146,68 +122,18 @@ const createCard = (item) => {
 
 
 
-// функция отправки формы имени и призвания. включает в себя: 
-// вызов функции отмены стандартного действие браузера
-// перенос полученных данных из формы имени и призвания в теги имени и призвания на странице
-// вызов функции закрытия попапа редактирования имени и призвания
-const handleSubmitPopupInfoForm = (evt) => {
-    evt.preventDefault();
-
-    profileName.textContent = popupInfoNameInput.value;
-    profileJob.textContent = popupInfoJobInput.value;
-
-    closeOpenPopupInfo.close();
-}
-
-// функция отправки формы добавления фотографии. включает в себя:
-// вызов функции отмены стандартного действие браузера
-// вызов функции добавления карточки с любым именем и ссылкой
-// вызов функции закрытия попапа добавления фото
-// вызов метода очистки формы
-const handleSubmitPopupPhotoForm = (evt) => {
-    evt.preventDefault();
-
-    const newCardValues = {
-        name: popupPhotoNameInput.value,
-        link: popupPhotoJobInput.value,
-    };
-    const newCard = createCard(newCardValues);
-    addCard(newCard);
-    
-    closeOpenPopupPhoto.close();
-}
-
-
-
-// метод перебора массива карточек для добавления данных в каждую карточку
-initialCards.forEach((initialCard) => {
-    const card = createCard(initialCard);
-    renderCard(card);
-});
-
-
-
-
-
 // слушатель вызова функции открытия попапа редактирования имени и призвания
-profileInfoEditBtn.addEventListener ('click', () => {
-    closeOpenPopupInfo.open();
-    addInfoValid.disableValidation();
-    popupInfoNameInput.value = profileName.textContent;
-    popupInfoJobInput.value = profileJob.textContent;
-});
-
-// слушатель вызова функции отправки формы редактирования имени и призвания
-popupInfoForm.addEventListener('submit', handleSubmitPopupInfoForm);
-
-
+profileInfoEditBtn.addEventListener ('click', handleOpenPopupInfoForm);
 
 // слушатель вызова функции открытия попапа добавления фото
-profileAddPhotoBtn.addEventListener('click', () => {
-    popupPhotoForm.reset();
-    addPhotoValid.disableValidation();
-    closeOpenPopupPhoto.open();
-});
+profileAddPhotoBtn.addEventListener('click', handleOpenPopupPhotoForm)
 
-// слушатель вызова функции отправки формы добавления фото
-popupPhotoForm.addEventListener('submit', handleSubmitPopupPhotoForm);
+
+
+addInfoValid.enableValidation();
+addPhotoValid.enableValidation();
+
+popupInfoFormClass.setEventListeners();
+popupPhotoFormClass.setEventListeners();
+
+renderElements.renderItems();
