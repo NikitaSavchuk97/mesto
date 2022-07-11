@@ -137,3 +137,4 @@ popupInfoFormClass.setEventListeners();
 popupPhotoFormClass.setEventListeners();
 
 renderElements.renderItems();
+

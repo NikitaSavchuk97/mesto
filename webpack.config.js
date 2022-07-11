@@ -53,3 +53,21 @@ module.exports = {
     new MiniCssExtractPlugin(),
   ],
 }
+
+
+/*
+mesto@0.0.1 /Users/nikitasavchuk/Documents/JS HTML CSS/mesto
+├── @babel/core@7.18.6
+├── @babel/preset-env@7.18.6
+├── autoprefixer@10.4.7
+├── babel-loader@8.2.5
+├── core-js@3.23.3
+├── css-loader@6.7.1
+├── cssnano@5.1.12
+├── html-webpack-plugin@5.5.0
+├── mini-css-extract-plugin@2.6.1
+├── postcss-loader@7.0.0
+├── webpack-cli@4.10.0
+├── webpack-dev-server@4.9.3
+└── webpack@5.73.0
+*/
