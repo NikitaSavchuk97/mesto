@@ -61,6 +61,7 @@ mesto@0.0.1 /Users/nikitasavchuk/Documents/JS HTML CSS/mesto
 ├── @babel/preset-env@7.18.6
 ├── autoprefixer@10.4.7
 ├── babel-loader@8.2.5
+├── clean-webpack-plugin@4.0.0
 ├── core-js@3.23.3
 ├── css-loader@6.7.1
 ├── cssnano@5.1.12

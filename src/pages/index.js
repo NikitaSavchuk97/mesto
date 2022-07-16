@@ -6,7 +6,7 @@ import {
     userInfoConfiguration,
     sectionConfiguration,
     initialCards,
-    template,
+    templateSelector,
     profileInfoEditBtn, 
     popupInfo, 
     popupInfoForm, 
@@ -22,34 +22,23 @@ import '../pages/index.css'
 import FormValidator from "../components/FormValidator.js";
 import Card from "../components/Card.js";
 import Section from "../components/Section.js"
-import Popup from "../components/Popup.js"
 import PopupWithImage from '../components/PopupWithImage.js'
 import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
 
 
 
-const addPhotoValid = new FormValidator (
+const popupPhotoValid = new FormValidator (
     validationConfiguration,
     popupPhotoForm,
 );
 
-const addInfoValid = new FormValidator (
+const popupInfoValid = new FormValidator (
     validationConfiguration,
     popupInfoForm,
 );
 
-const closeOpenPopupInfo = new Popup (
-    popupInfo,
-    popupConfiguration,
-);
-
-const closeOpenPopupPhoto = new Popup (
-    popupPhoto,
-    popupConfiguration,
-);
-
-const popupImage = new PopupWithImage (
+const popupWithImage = new PopupWithImage (
     popupIllustration,                                  
     popupConfiguration,
     popupWithImageConfiguration,
@@ -59,11 +48,11 @@ const userInfoClass = new UserInfo (
     userInfoConfiguration,
 );
 
-const renderElements = new Section (
+const elementsRender = new Section (
     sectionConfiguration,
     {
         items: initialCards.reverse(),
-        renderer: createCard
+        renderer: createCard,
     },
 );
 
@@ -72,50 +61,47 @@ const popupInfoFormClass = new PopupWithForm (
     popupConfiguration,
     popupWithFormConfiguration,
     {
-        callBack: () => {
-            userInfoClass.setUserInfo( popupInfoFormClass._getInputvalues() )
+        callBack: (inputValues) => {
+            userInfoClass.setUserInfo( inputValues )
         }
     },
 );
+
 
 const popupPhotoFormClass = new PopupWithForm (
     popupPhoto,
     popupConfiguration,
     popupWithFormConfiguration,
     {
-        callBack: () => {
-            const newCard = createCard( popupPhotoFormClass._getInputvalues() );
-            renderElements.addItem(newCard);
+        callBack: (inputValues) => {
+            elementsRender.addItem( createCard(inputValues) )
         }
     },
 );
 
 
 
-// функция открытия попапа добавления фото
-const handleOpenPopupPhotoForm = () => {
-    popupPhotoForm.reset();
-    addPhotoValid.disableValidation();
-    closeOpenPopupPhoto.open();
-};
-
-
-
 // функция открытия попапа редактирования имени и призвания
 const handleOpenPopupInfoForm = () => {
-    addInfoValid.disableValidation();
-    closeOpenPopupInfo.open();
+    popupInfoValid.disableValidation();
+    popupInfoFormClass.open();
     
     const {name, job} = userInfoClass.getUserInfo()
     popupInfoNameInput.value = name;
     popupInfoJobInput.value = job;
 };
 
+// функция открытия попапа добавления фото
+const handleOpenPopupPhotoForm = () => {
+    popupPhotoValid.disableValidation();
+    popupPhotoFormClass.open();
+};
+
 
 
 //функция передачи данных для создания карточки
 function createCard (item) {
-    const card = new Card (item, template, popupImage.open);
+    const card = new Card (item, templateSelector, popupWithImage.open);
     const cardElement = card.createCard();
     return cardElement;
 };
@@ -130,11 +116,12 @@ profileAddPhotoBtn.addEventListener('click', handleOpenPopupPhotoForm)
 
 
 
-addInfoValid.enableValidation();
-addPhotoValid.enableValidation();
+popupInfoValid.enableValidation();
+popupPhotoValid.enableValidation();
 
 popupInfoFormClass.setEventListeners();
 popupPhotoFormClass.setEventListeners();
+popupWithImage.setEventListeners();
 
-renderElements.renderItems();
+elementsRender.renderItems();
 

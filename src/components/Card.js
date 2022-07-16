@@ -1,11 +1,9 @@
-import PopupImage from "./PopupWithImage.js";
-
 class Card {
-    constructor (configuration, template, popupIllustration) {
+    constructor (configuration, templateSelector, openPopupIllustration) {
         this._name = configuration.name;
         this._link = configuration.link;
-        this._template = template;
-        this._popupIllustration = popupIllustration;
+        this._template = document.querySelector(templateSelector);
+        this._openPopupIllustration = openPopupIllustration;
     }
 
     _getTemplate = () => {
@@ -28,7 +26,7 @@ class Card {
         this._elementTitle.textContent = this._name;
 
         this._setEventListeners();
-
+        
         return this._element;
     }
 
@@ -38,10 +36,11 @@ class Card {
 
     _handleDeleteClick = () => {
         this._element.remove();
+        this._element = null;
     }
     
-    _handleImageClick = () => {
-        this._popupIllustration({name: this._name, link: this._link})
+    _handleImageClick () {
+        this._openPopupIllustration({name: this._name, link: this._link})
     }
 
     _setEventListeners = () => {

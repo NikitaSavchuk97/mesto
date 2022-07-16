@@ -1,13 +1,22 @@
-const template = document.querySelector('.template-item');
+const elementsSelector = '.elements';
+const templateSelector = '.template-item';
+
 const profileInfoEditBtn = document.querySelector('.profile-info__edit-button');
+const profileName = document.querySelector('.profile-info__name');
+const profileJob = document.querySelector('.profile-info__title');
 const profileAddPhotoBtn = document.querySelector('.add-button');
+
 const popupInfo = document.querySelector('.popup_type_info');
 const popupInfoForm = popupInfo.querySelector('.popup__form');
 const popupInfoNameInput = popupInfoForm.querySelector('.popup__name');
 const popupInfoJobInput = popupInfoForm.querySelector('.popup__about');
+
 const popupPhoto = document.querySelector('.popup_type_photo');
 const popupPhotoForm = popupPhoto.querySelector('.popup__form');
+
 const popupIllustration = document.querySelector('.popup_type_illustration');
+const popupIllustrationImage = popupIllustration.querySelector('.popup__image');
+const popupIllustrationSubtitle = popupIllustration.querySelector('.popup__subtitle');
 
 
 
@@ -20,27 +29,28 @@ const validationConfiguration = {
 };
 
 const popupConfiguration = {
-  popupCloseBtnSelector: 'popup__close',
-  popupActiveSelector: 'popup_active',
+  popupCloseBtnCssClass: 'popup__close',
+  popupActiveCssClass: 'popup_active',
 };
 
 const popupWithImageConfiguration = {
-  popupIllustrationImageSelector: 'popup__image',
-  popupIllustrationSubtitleSelector: 'popup__subtitle',
+  popupIllustrationImage,
+  popupIllustrationSubtitle,
 };
 
 const popupWithFormConfiguration = {
-  popupFormSelector: 'popup__form',
-  popupFormInputSelector: 'popup__input',
+  popupFormSelector: '.popup__form',
+  popupFormInputSelector: '.popup__input',
+  popupFormSubmitBtnSelector: '.popup__save-button',
 };
 
 const userInfoConfiguration = {
-  profileNameSelector: 'profile-info__name',
-  profileJobSelector: 'profile-info__title',
+  profileName,
+  profileJob,
 };
 
 const sectionConfiguration = {
-  elementsSelector: 'elements', 
+  elementsSelector,
 };
 
 
@@ -82,7 +92,7 @@ export {
   userInfoConfiguration,
   sectionConfiguration,
   initialCards,
-  template,
+  templateSelector,
   profileInfoEditBtn,
   popupInfo,
   popupInfoForm,
