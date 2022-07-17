@@ -1,9 +1,6 @@
-const elementsSelector = '.elements';
 const templateSelector = '.template-item';
 
 const profileInfoEditBtn = document.querySelector('.profile-info__edit-button');
-const profileName = document.querySelector('.profile-info__name');
-const profileJob = document.querySelector('.profile-info__title');
 const profileAddPhotoBtn = document.querySelector('.add-button');
 
 const popupInfo = document.querySelector('.popup_type_info');
@@ -15,8 +12,6 @@ const popupPhoto = document.querySelector('.popup_type_photo');
 const popupPhotoForm = popupPhoto.querySelector('.popup__form');
 
 const popupIllustration = document.querySelector('.popup_type_illustration');
-const popupIllustrationImage = popupIllustration.querySelector('.popup__image');
-const popupIllustrationSubtitle = popupIllustration.querySelector('.popup__subtitle');
 
 
 
@@ -34,8 +29,8 @@ const popupConfiguration = {
 };
 
 const popupWithImageConfiguration = {
-  popupIllustrationImage,
-  popupIllustrationSubtitle,
+  popupIllustrationImageSelector: '.popup__image',
+  popupIllustrationSubtitleSelector: '.popup__subtitle',
 };
 
 const popupWithFormConfiguration = {
@@ -45,12 +40,12 @@ const popupWithFormConfiguration = {
 };
 
 const userInfoConfiguration = {
-  profileName,
-  profileJob,
+  profileNameSelector: '.profile-info__name',
+  profileJobSelector: '.profile-info__title',
 };
 
 const sectionConfiguration = {
-  elementsSelector,
+  elementsSelector: '.elements',
 };
 
 

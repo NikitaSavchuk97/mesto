@@ -1,6 +1,6 @@
 class Popup {
-    constructor (popup, {popupActiveCssClass, popupCloseBtnCssClass}) {
-        this._popup = popup;
+    constructor (popupSelector, {popupActiveCssClass, popupCloseBtnCssClass}, ) {
+        this._popup = document.querySelector(popupSelector);
         this._popupActiveCssClass = popupActiveCssClass;
         this._popupCloseBtnCssClass = popupCloseBtnCssClass;
 

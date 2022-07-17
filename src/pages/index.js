@@ -7,14 +7,11 @@ import {
     sectionConfiguration,
     initialCards,
     templateSelector,
-    profileInfoEditBtn, 
-    popupInfo, 
-    popupInfoForm, 
+    profileInfoEditBtn,
+    popupInfoForm,
     popupInfoNameInput,
-    popupInfoJobInput, 
-    popupIllustration,
-    profileAddPhotoBtn, 
-    popupPhoto, 
+    popupInfoJobInput,
+    profileAddPhotoBtn,
     popupPhotoForm,
 } from "../utils/constants.js";
 
@@ -39,7 +36,7 @@ const popupInfoValid = new FormValidator (
 );
 
 const popupWithImage = new PopupWithImage (
-    popupIllustration,                                  
+    '.popup_type_illustration',                                  
     popupConfiguration,
     popupWithImageConfiguration,
 );
@@ -57,7 +54,7 @@ const elementsRender = new Section (
 );
 
 const popupInfoFormClass = new PopupWithForm (
-    popupInfo,
+    '.popup_type_info',
     popupConfiguration,
     popupWithFormConfiguration,
     {
@@ -67,9 +64,8 @@ const popupInfoFormClass = new PopupWithForm (
     },
 );
 
-
 const popupPhotoFormClass = new PopupWithForm (
-    popupPhoto,
+    '.popup_type_photo',
     popupConfiguration,
     popupWithFormConfiguration,
     {
