@@ -1,5 +1,5 @@
 class Popup {
-    constructor (popupSelector, {popupActiveCssClass, popupCloseBtnCssClass}, ) {
+    constructor(popupSelector, { popupActiveCssClass, popupCloseBtnCssClass },) {
         this._popup = document.querySelector(popupSelector);
         this._popupActiveCssClass = popupActiveCssClass;
         this._popupCloseBtnCssClass = popupCloseBtnCssClass;
@@ -7,26 +7,25 @@ class Popup {
         this._handleEscClose = this._handleEscClose.bind(this);
     }
 
-    setEventListeners () {
+    setEventListeners() {
         this._popup.addEventListener('mousedown', (evt) => {
             if (evt.target.classList.contains(this._popupActiveCssClass)) { this.close() }
             if (evt.target.classList.contains(this._popupCloseBtnCssClass)) { this.close() }
         });
-        
     }
 
-    _handleEscClose (evt) {
+    _handleEscClose(evt) {
         if (evt.key === 'Escape') {
             this.close();
         }
     }
 
-    open () {
+    open() {
         this._popup.classList.add(this._popupActiveCssClass);
         document.addEventListener('keydown', this._handleEscClose);
     }
 
-    close () {
+    close() {
         this._popup.classList.remove(this._popupActiveCssClass);
         document.removeEventListener('keydown', this._handleEscClose);
     }
