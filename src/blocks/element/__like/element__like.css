@@ -9,7 +9,7 @@
     background-size: contain;
     background-position: center;
 
-    margin: auto 20px auto auto;
+    margin: 25px 20px auto auto;
     padding: 0;
 
     cursor: pointer;
@@ -17,10 +17,11 @@
     border: none;
 
     transition: opacity 0.3s ease-in-out;
-    
+
     width: 22px;
     height: 19px;
 }
+
 .element__like:hover {
     opacity: 0.5;
 }

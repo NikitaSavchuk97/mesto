@@ -1,7 +1,7 @@
 .profile-info__name {
     grid-area: name;
 
-    margin: 0 0 16px 0;
+    margin: 0 0 16px 30px;
     font-style: normal;
     font-weight: 500;
     font-size: 42px;
@@ -14,7 +14,7 @@
 }
 
 @media screen and (max-width: 768px) {
-    .profile-info__name{
+    .profile-info__name {
         width: 70%;
         margin: 0 auto 16px auto;
         text-align: center;
@@ -23,11 +23,9 @@
 
 
 @media screen and (max-width: 425px) {
-    .profile-info__name{
+    .profile-info__name {
         font-size: 27px;
         line-height: 33px;
         margin: 0 auto 14px auto;
     }
 }
-
-

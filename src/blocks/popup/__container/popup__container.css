@@ -1,12 +1,12 @@
 .popup__container {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    
+    justify-content: space-between;
+
     cursor: default;
 
     background-color: #ffffff;
-    
+
     border-radius: 10px;
 
     width: 430px;

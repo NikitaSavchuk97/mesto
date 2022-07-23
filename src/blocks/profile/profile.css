@@ -5,13 +5,11 @@
 
     margin: 0 0 50px 0;
 
-    color: white;
-
     width: 100%;
 }
 
 @media screen and (max-width: 768px) {
-    .profile{
+    .profile {
         flex-direction: column;
         justify-content: space-between;
 
