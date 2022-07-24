@@ -44,12 +44,6 @@ const popupAvatarValid = new FormValidator(
     popupAvatar
 )
 
-const popupIllustrationFormClass = new PopupWithImage(
-    '.popup_type_illustration',
-    popupConfiguration,
-    popupWithImageConfiguration,
-);
-
 const userInfoClass = new UserInfo(
     userInfoConfiguration,
 );
@@ -60,6 +54,26 @@ const elementsRender = new Section(
         renderer: createCard,
     },
 );
+
+const apiClass = new Api(
+    apiConfiguration
+)
+
+const popupAvatarFormClass = new PopupWithForm(
+    '.popup_type_avatar',
+    popupConfiguration,
+    popupWithFormConfiguration,
+    {
+        callBack: (inputValues) => {
+            popupAvatarFormClass.isLoading(true);
+            apiClass
+                .setAvatar(inputValues)
+                .then((data) => userInfoClass.setUserInfo(data))
+                .catch((err) => console.log(err))
+                .finally(() => popupAvatarFormClass.isLoading(false))
+        }
+    },
+)
 
 const popupInfoFormClass = new PopupWithForm(
     '.popup_type_info',
@@ -77,21 +91,7 @@ const popupInfoFormClass = new PopupWithForm(
     },
 );
 
-const popupAvatarFormClass = new PopupWithForm(
-    '.popup_type_avatar',
-    popupConfiguration,
-    popupWithFormConfiguration,
-    {
-        callBack: (inputValues) => {
-            popupAvatarFormClass.isLoading(true);
-            apiClass
-                .setAvatar(inputValues)
-                .then((data) => userInfoClass.setUserInfo(data))
-                .catch((err) => console.log(err))
-                .finally(() => popupAvatarFormClass.isLoading(false))
-        }
-    },
-)
+
 
 const popupPhotoFormClass = new PopupWithForm(
     '.popup_type_photo',
@@ -127,9 +127,13 @@ const popupDeleteConfirmFormClass = new PopupWithConfirm(
     },
 )
 
-const apiClass = new Api(
-    apiConfiguration
-)
+const popupIllustrationFormClass = new PopupWithImage(
+    '.popup_type_illustration',
+    popupConfiguration,
+    popupWithImageConfiguration,
+);
+
+
 
 
 
