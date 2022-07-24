@@ -19,7 +19,6 @@ import {
     templateSelector,
     profileInfoEditBtn,
     profileAvatarEditBtn,
-    profileAvatar,
     popupInfoForm,
     popupInfoNameInput,
     popupInfoJobInput,
@@ -68,7 +67,10 @@ const popupAvatarFormClass = new PopupWithForm(
             popupAvatarFormClass.isLoading(true);
             apiClass
                 .setAvatar(inputValues)
-                .then((data) => userInfoClass.setUserInfo(data))
+                .then((data) => {
+                    userInfoClass.setUserInfo(data);
+                    popupAvatarFormClass.close();
+                })
                 .catch((err) => console.log(err))
                 .finally(() => popupAvatarFormClass.isLoading(false))
         }
@@ -84,7 +86,10 @@ const popupInfoFormClass = new PopupWithForm(
             popupInfoFormClass.isLoading(true);
             apiClass
                 .setUserInfo(inputValues)
-                .then((data) => userInfoClass.setUserInfo(data))
+                .then((data) => {
+                    userInfoClass.setUserInfo(data);
+                    popupInfoFormClass.close();
+                })
                 .catch((err) => console.log(err))
                 .finally(() => popupInfoFormClass.isLoading(false))
         }
@@ -102,7 +107,10 @@ const popupPhotoFormClass = new PopupWithForm(
             popupPhotoFormClass.isLoading(true);
             apiClass
                 .setCard(inputValues)
-                .then((data) => elementsRender.addItem(createCard(data)))
+                .then((data) => {
+                    elementsRender.addItem(createCard(data));
+                    popupPhotoFormClass.close();
+                })
                 .catch((err) => console.log(err))
                 .finally(() => popupPhotoFormClass.isLoading(false))
 

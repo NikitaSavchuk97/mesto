@@ -74,7 +74,6 @@ export {
     templateSelector,
     profileInfoEditBtn,
     profileAvatarEditBtn,
-    profileAvatar,
     popupAvatar,
     popupInfo,
     popupInfoForm,

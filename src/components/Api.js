@@ -9,9 +9,7 @@ class Api {
 	getUserInfo() {
 		return fetch(`${this._baseUrl}/users/me`, {
 			headers: this._headers,
-		})
-			.then(this._dataServerAnswer)
-			.catch((err) => console.log(err))
+		}).then(this._dataServerAnswer)
 	}
 
 	setUserInfo({ name, job }) {
@@ -22,17 +20,13 @@ class Api {
 				name: name,
 				about: job,
 			})
-		})
-			.then(this._dataServerAnswer)
-			.catch((err) => console.log(err))
+		}).then(this._dataServerAnswer)
 	}
 
 	getCards() {
 		return fetch(`${this._baseUrl}/cards`, {
 			headers: this._headers,
-		})
-			.then(this._dataServerAnswer)
-			.catch((err) => console.log(err))
+		}).then(this._dataServerAnswer)
 	}
 
 	setCard({ name, link }) {
@@ -43,36 +37,28 @@ class Api {
 				name: name,
 				link: link,
 			})
-		})
-			.then(this._dataServerAnswer)
-			.catch((err) => console.log(err))
+		}).then(this._dataServerAnswer)
 	}
 
 	deleteCard(id) {
 		return fetch(`${this._baseUrl}/cards/${id}`, {
 			method: 'DELETE',
 			headers: this._headers,
-		})
-			.then(this._dataServerAnswer)
-			.catch((err) => console.log(err))
+		}).then(this._dataServerAnswer)
 	}
 
 	likeCard(id) {
 		return fetch(`${this._baseUrl}/cards/likes/${id}`, {
 			method: 'PUT',
 			headers: this._headers,
-		})
-			.then(this._dataServerAnswer)
-			.catch((err) => console.log(err))
+		}).then(this._dataServerAnswer)
 	}
 
 	dislikeCard(id) {
 		return fetch(`${this._baseUrl}/cards/likes/${id}`, {
 			method: 'DELETE',
 			headers: this._headers,
-		})
-			.then(this._dataServerAnswer)
-			.catch((err) => console.log(err))
+		}).then(this._dataServerAnswer)
 	}
 
 	setAvatar({ avatar }) {
@@ -82,9 +68,7 @@ class Api {
 			body: JSON.stringify({
 				avatar: avatar,
 			})
-		})
-			.then(this._dataServerAnswer)
-			.catch((err) => console.log(err))
+		}).then(this._dataServerAnswer)
 	}
 
 	_dataServerAnswer(resolve) {
