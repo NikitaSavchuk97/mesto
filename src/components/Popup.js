@@ -1,5 +1,5 @@
 class Popup {
-    constructor(popupSelector, { popupActiveCssClass, popupCloseBtnCssClass },) {
+    constructor(popupSelector, { popupActiveCssClass, popupCloseBtnCssClass }) {
         this._popup = document.querySelector(popupSelector);
         this._popupActiveCssClass = popupActiveCssClass;
         this._popupCloseBtnCssClass = popupCloseBtnCssClass;
@@ -29,6 +29,8 @@ class Popup {
         this._popup.classList.remove(this._popupActiveCssClass);
         document.removeEventListener('keydown', this._handleEscClose);
     }
+
+
 }
 
 export default Popup;

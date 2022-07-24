@@ -6,6 +6,7 @@ class PopupWithForm extends Popup {
         this._popupForm = this._popup.querySelector(popupFormSelector);
         this._popupFormInputs = Array.from(this._popup.querySelectorAll(popupFormInputSelector));
         this._popupFormSubmitBtn = this._popup.querySelector(popupFormSubmitBtnSelector);
+        this._popupFormSubmitBtnText = this._popupFormSubmitBtn.textContent;
         this._callBack = callBack;
     }
 
@@ -29,6 +30,14 @@ class PopupWithForm extends Popup {
     close() {
         this._popupForm.reset()
         super.close()
+    }
+
+    isLoading(load) {
+        if (load) {
+            this._popupFormSubmitBtn.textContent = 'Идет загрузка данных на сервер';
+        } else {
+            this._popupFormSubmitBtn.textContent = this._popupFormSubmitBtnText;
+        }
     }
 }
 

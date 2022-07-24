@@ -16,7 +16,6 @@ import {
     sectionConfiguration,
     apiConfiguration,
     popupAvatar,
-    initialCards,
     templateSelector,
     profileInfoEditBtn,
     profileAvatarEditBtn,
@@ -28,7 +27,7 @@ import {
     popupPhotoForm,
 } from "../utils/constants.js";
 
-
+let userId;
 
 const popupPhotoValid = new FormValidator(
     validationConfiguration,
@@ -45,7 +44,7 @@ const popupAvatarValid = new FormValidator(
     popupAvatar
 )
 
-const popupWithImage = new PopupWithImage(
+const popupIllustrationFormClass = new PopupWithImage(
     '.popup_type_illustration',
     popupConfiguration,
     popupWithImageConfiguration,
@@ -58,7 +57,6 @@ const userInfoClass = new UserInfo(
 const elementsRender = new Section(
     sectionConfiguration,
     {
-        items: initialCards.reverse(),
         renderer: createCard,
     },
 );
@@ -69,9 +67,12 @@ const popupInfoFormClass = new PopupWithForm(
     popupWithFormConfiguration,
     {
         callBack: (inputValues) => {
+            popupInfoFormClass.isLoading(true);
             apiClass
                 .setUserInfo(inputValues)
-                .then((data) => userInfoClass.setUserInfo(data));
+                .then((data) => userInfoClass.setUserInfo(data))
+                .catch((err) => console.log(err))
+                .finally(() => popupInfoFormClass.isLoading(false))
         }
     },
 );
@@ -82,9 +83,12 @@ const popupAvatarFormClass = new PopupWithForm(
     popupWithFormConfiguration,
     {
         callBack: (inputValues) => {
+            popupAvatarFormClass.isLoading(true);
             apiClass
                 .setAvatar(inputValues)
-                .then((data) => userInfoClass.setUserInfo(data));
+                .then((data) => userInfoClass.setUserInfo(data))
+                .catch((err) => console.log(err))
+                .finally(() => popupAvatarFormClass.isLoading(false))
         }
     },
 )
@@ -95,15 +99,18 @@ const popupPhotoFormClass = new PopupWithForm(
     popupWithFormConfiguration,
     {
         callBack: (inputValues) => {
+            popupPhotoFormClass.isLoading(true);
             apiClass
                 .setCard(inputValues)
                 .then((data) => elementsRender.addItem(createCard(data)))
+                .catch((err) => console.log(err))
+                .finally(() => popupPhotoFormClass.isLoading(false))
 
         }
     },
 );
 
-const popupWithConfirm = new PopupWithConfirm(
+const popupDeleteConfirmFormClass = new PopupWithConfirm(
     '.popup_type_delete',
     popupConfiguration,
     popupWithFormConfiguration,
@@ -114,7 +121,8 @@ const popupWithConfirm = new PopupWithConfirm(
                 .then(() => {
                     card.deleteCard()
                 })
-                .then(() => popupWithConfirm.close())
+                .then(() => popupDeleteConfirmFormClass.close())
+                .catch((err) => console.log(err))
         }
     },
 )
@@ -122,35 +130,6 @@ const popupWithConfirm = new PopupWithConfirm(
 const apiClass = new Api(
     apiConfiguration
 )
-
-let userId;
-let cohortId;
-
-Promise.all([apiClass.getUserInfo(), apiClass.getCards()])
-    .then(([user, cards]) => {
-        userId = user._id
-        cohortId = user.cohort
-        userInfoClass.setUserInfo(user)
-        elementsRender.renderItems(cards)
-    })
-    .catch((err) => console.log(err));
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -176,11 +155,6 @@ const handleOpenPopupAvatarEdit = () => {
     popupAvatarFormClass.open();
 }
 
-const handleOpenPopupDeleteCard = () => {
-    popupDeleteFormClass.open()
-}
-
-
 //функция передачи данных для создания карточки
 function createCard(item) {
     const card = new Card(
@@ -189,10 +163,10 @@ function createCard(item) {
         userId,
         {
             handleImageClick: (name, link) => {
-                popupWithImage.open(name, link);
+                popupIllustrationFormClass.open(name, link);
             },
             handleDeleteConfirm: (card) => {
-                popupWithConfirm.open(card);
+                popupDeleteConfirmFormClass.open(card);
             },
             handleLikeClick: (id) => {
                 apiClass
@@ -225,11 +199,20 @@ profileAddPhotoBtn.addEventListener('click', handleOpenPopupPhotoForm)
 
 popupInfoValid.enableValidation();
 popupPhotoValid.enableValidation();
-popupAvatarValid.enableValidation()
-popupWithConfirm.setEventListeners()
 
-popupAvatarFormClass.setEventListeners()
+popupAvatarValid.enableValidation()
 popupInfoFormClass.setEventListeners();
 popupPhotoFormClass.setEventListeners();
-popupWithImage.setEventListeners();
+popupAvatarFormClass.setEventListeners();
+popupIllustrationFormClass.setEventListeners();
+popupDeleteConfirmFormClass.setEventListeners();
 
+
+
+Promise.all([apiClass.getUserInfo(), apiClass.getCards()])
+    .then(([user, cards]) => {
+        userId = user._id
+        userInfoClass.setUserInfo(user)
+        elementsRender.renderItems(cards)
+    })
+    .catch((err) => console.log(err));
