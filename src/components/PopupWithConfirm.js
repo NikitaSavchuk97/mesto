@@ -4,7 +4,6 @@ class PopupWithConfirm extends Popup {
 	constructor(popupSelector, popupConfiguration, { popupFormSelector, popupFormInputSelector, popupFormSubmitBtnSelector }, { callBack }) {
 		super(popupSelector, popupConfiguration)
 		this._popupForm = this._popup.querySelector(popupFormSelector);
-		console.log(callBack)
 		this._callBack = callBack;
 	}
 
