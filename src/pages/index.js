@@ -28,6 +28,8 @@ import {
 
 let userId;
 
+
+
 const popupPhotoValid = new FormValidator(
     validationConfiguration,
     popupPhotoForm,
